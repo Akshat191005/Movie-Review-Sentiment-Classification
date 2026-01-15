@@ -4,28 +4,12 @@ import tensorflow as tf
 from tensorflow.keras.datasets import imdb
 from tensorflow.keras.preprocessing import sequence
 from tensorflow.keras.models import load_model
-from keras.layers import SimpleRNN
-
-class FixedSimpleRNN(SimpleRNN):
-    def __init__(self, *args, **kwargs):
-        kwargs.pop("time_major", None)
-        super().__init__(*args, **kwargs)
-
-model = load_model(
-    "simple_rnn_imdb.keras",
-    custom_objects={"SimpleRNN": FixedSimpleRNN},
-    compile=False,
-    safe_mode=False
-)
-
-
 
 # Load the IMDB dataset word index
 word_index = imdb.get_word_index()
 reverse_word_index = {value: key for key, value in word_index.items()}
 
-
-
+# Load the pre-trained model with ReLU activation
 model = load_model('simple_rnn_imdb.keras')
 
 # Step 2: Helper Functions
